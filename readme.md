@@ -1,30 +1,139 @@
-# [Don't Starve Food Guide](https://foodguide.bluehexagons.com)
+<!DOCTYPE html>
+<html>
+<head>
+	<title>Don't Starve Food Guide</title>
+	<meta name="viewport" content="width=device-width, initial-scale=1.0, minimum-scale=1.0">
+	<link rel="modulepreload" href="constants.js">
+	<link rel="modulepreload" href="food.js">
+	<link rel="modulepreload" href="foodguide.js">
+	<link rel="modulepreload" href="recipes.js">
+	<link rel="modulepreload" href="utils.js">
 
-Provides some tools for avoiding starvation
-in a game named after the task.
+	<link rel="shortcut icon" href="icon.png" />
+	<meta charset='utf-8' />
+	<link rel="stylesheet" href="style/main.css">
+</head>
+<body>
+<div id="background"></div>
+<div id="content">
+	<div id="main">
+		<ul id="navbar">
+			<span class="listmenu">
+				<li data-tab="simulator">Simulator</li>
+				<li data-tab="discovery">Discovery</li>
+				<li data-tab="foodlist">Food List</li>
+				<li data-tab="crockpot">Recipe List</li>
+				<li data-tab="statistics">Statistics Analyzer</li>
+				<li data-tab="help">Help</li>
+				<li><a href="http://www.dontstarvegame.com/" target="_blank">Don't Starve</a></li>
+			</span>
+		</ul>
 
+		<div id="simulator">
+			<div style="margin-bottom: 6pt">Add ingredients to see what they make.</div>
+			<input type="text" class="ingredientpicker" data-type="food" data-cookable="true" style="width: 25%" placeholder="Filter ingredients" /><div id="ingredients" class="ingredientlist"><span class="ingredient"></span><span class="ingredient"></span><span class="ingredient"></span><span class="ingredient"></span></div>
+			<div id="results"></div>
+		</div>
 
-## Using
+		<div id="discovery">
+			<div style="margin-bottom: 6pt">Add items in your inventory to see your options.</div>
+			<input type="text" class="ingredientpicker" style="width: 25%" placeholder="Filter ingredients" /><div id="inventory" class="ingredientlist"></div>
+			Stats about your food:
+			<div id="discoverfood"></div>
+			With these, you can make:
+			<div id="discover"></div>
+			Find what recipes are most efficient:
+			<div id="makable"></div>
+		</div>
 
-Live version - [foodguide.bluehexagons.com](https://foodguide.bluehexagons.com)
+		<div id="foodlist">
+			<div id="food"></div>
+		</div>
 
-github.io - [bluehexagons.github.io/foodguide/...](https://bluehexagons.github.io/foodguide/html/index.htm)
+		<div id="crockpot">
+			<div id="recipes"></div>
+		</div>
 
-Old URL, now backup - [bluehexagons.com/foodguide](https://bluehexagons.com/foodguide)
+		<div id="statistics">
+		</div>
 
+		<div id="help">
+			<h2>About This Food Guide</h2>
 
-## Desktop version (foodguide-app)
+			<p>
+				This is an unofficial tool to help avoid starvation in <a href="http://www.dontstarvegame.com/">Don't Starve</a>,
+				an uncompromising wilderness survival game full of science and magic,
+				by <a href="http://kleientertainment.com/">Klei Entertainment</a>,
+				available on <a href="http://store.steampowered.com/app/219740/">Steam</a>.
+			</p>
+			<p>This tool requires a modern web browser and is officially supported in recent versions of: Chrome/Chromium, Firefox, Safari, and Edge; on desktop or mobile</p>
+			<p>Maintained as a community effort. Last content addition: <strong>August 6, 2023</strong></p>
 
-The [foodguide-app](https://github.com/bluehexagons/foodguide-app) repository has source code and release
-builds for a thin Electron wrapper around this project.
+			<h2>About Don't Starve Food</h2>
 
+			<p>
+				<strong>Perish time</strong> is the time before a food item becomes <strong>Rot</strong>. <strong>Halfway</strong> through this period, it will go <strong>stale</strong>, and give <strong><span id="stalehealth"></span> health</strong> and <strong><span id="stalehunger"></span> hunger</strong>, as well as <strong>no sanity</strong>.
+				Food <strong>spoils</strong> at <strong>three quarters</strong>, giving only <strong><span id="spoiledhunger"></span> hunger</strong> and <strong>no longer giving any health</strong>.
+				Eating spoiled food will decrease sanity by <strong><span id="spoiledsanity"></span></strong>.
+				Food <strong>dropped on the ground</strong> will <strong>perish</strong> at a rate of <strong><span id="perishground"></span></strong> (or <strong><span id="perishwinter"></span></strong> in <strong>Winter</strong>, <strong><span id="perishsummer"></span></strong> in <strong>Summer</strong>), while keeping it in the <strong>Ice Box</strong> will reduce the rate to <strong><span id="perishfridge"></span></strong>.
+			</p>
+			<p>Foods that provide <strong>warmth</strong> or <strong>cooling</strong> work like a thermal stone; when eaten, they provide a heat source at a particular temperature for a period of time. Eating another heating/cooling food within this period will replace the earlier effect.</p>
+			<p><strong>Recipe priority</strong> determines which recipe a food combination will make; only the highest-priority possible recipes can be produced by a batch of ingredients.</p>
+			<p>In recipe requirements, cooked/uncooked usually doesn't make a difference. If it does, then only the valid form will be listed.</p>
+			<h2>About DLC and Don't Starve Together</h2>
+			<p>
+				Which foods and recipes exist in each version of the game gets a little complicated. For this reason, there are buttons in the upper-left that let you switch modes for a game. Click on a badge to switch to the mode for that game; you can also right-click on badges to toggle their individual recipes and ingredients on and off.
+			</p>
 
-## Contributors
-  [bluehexagons](https://github.com/bluehexagons)
-  [rezecib](https://github.com/rezecib)
-  [levy9527](https://github.com/levy9527)
-  [brewingcode](https://github.com/brewingcode)
-  [agathasilva28](https://github.com/agathasilva28)
-  [6lancmange](https://github.com/6lancmange)
-  [lakhnishMonster](https://github.com/lakhnishMonster)
-  [lormico](https://github.com/lormico)
+			<h2>Simulator</h2>
+
+			<p>
+				The Simulator works like a Crock Pot: add items, and it will tell you what food will be prepared. Note that only the highest-priority recipes will be candidates when actually cooking in-game.
+				The combined totals at the top reflect the ingredients added, where perish time is the shortest.
+				The suggestions below the real results show what recipes could be made by adding different items to those already in the Crock Pot.
+			</p>
+
+			<h2>Discovery</h2>
+
+			<p>
+				The Discovery tab is finds what recipes can be prepared using a collection of ingredients. It doesn't take item quantity into account, instead assuming you have four of each.
+				You are also able to calculate efficient recipes using your ingredients to get the most health or hunger benefit from cooking them in the crock pot. This works identically to the Statistics Analyzer tab, but limited to your inventory.
+			</p>
+			<h2>Statistics Analyzer</h2>
+			<p>
+				The Statistics Analyzer tab is for those who just want to explore ingredient combinations. It will calculate every valid ingredient combination possible (using an "ideal" ingredient selection, generally excluding uncooked food) and allows filtration by recipe and ingredient contents. Computation may take some time on slower computers.
+			</p>
+
+			<h2>Links</h2>
+
+			<p><a href="https://github.com/bluehexagons/foodguide/commits/main" target="_blank">Food Guide Change Log</a>
+			<p><a href="https://github.com/bluehexagons/foodguide/issues" target="_blank">Report Food Guide Bugs or Issues</a>
+			<p><a href="http://www.dontstarvegame.com/" target="_blank">Don't Starve Official Website</a>
+			<p><a href="http://dont-starve-game.wikia.com/" target="_blank">Don't Starve on Wikia</a>
+		</div>
+	</div>
+
+	<div id="footer">
+		<a href="http://www.dontstarvegame.com/">Don't Starve</a> &copy; <a href="http://kleientertainment.com/">Klei Entertainment</a>. Unofficial food guide <a href="https://github.com/bluehexagons/foodguide">source code</a> made available under the <a href="http://opensource.org/licenses/MIT">MIT License</a>.
+	</div>
+
+	<a class="github-link" href="https://github.com/bluehexagons/foodguide" target="_blank">
+		<img
+			decoding="async"
+			loading="lazy"
+			width="120"
+			height="120"
+			src="https://github.blog/wp-content/uploads/2008/12/forkme_right_darkblue_121621.png?resize=149%2C149"
+			class="attachment-full size-full"
+			alt="Fork me on GitHub"
+			data-recalc-dims="1"
+		>
+	</a>
+
+	<script type="module" src="foodguide.js"></script>
+	<script nomodule>
+		alert("Please use a modern browser!")
+	</script>
+</div>
+</body>
+</html>
